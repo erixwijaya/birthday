@@ -140,9 +140,78 @@
     font-size:24px;
     color:var(--coral-deep);
   }
+  .envelope.shake{
+    animation:lockShake 0.45s ease;
+  }
+  @keyframes lockShake{
+    0%, 100%{transform:translateX(0);}
+    20%, 60%{transform:translateX(-8px) rotate(-3deg);}
+    40%, 80%{transform:translateX(8px) rotate(3deg);}
+  }
+  .gate-lock-toast{
+    position:fixed;
+    top:26px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(58,33,69,0.92);
+    color:#FFF8F0;
+    padding:10px 22px;
+    border-radius:24px;
+    font-size:14.5px;
+    font-weight:600;
+    z-index:9999;
+    box-shadow:0 8px 24px rgba(0,0,0,0.25);
+    display:none;
+    animation:fadeInDown .3s ease;
+    text-align:center;
+    pointer-events:none;
+  }
+  @keyframes fadeInDown{
+    from{opacity:0; transform:translate(-50%, -15px);}
+    to{opacity:1; transform:translate(-50%, 0);}
+  }
+  .gate-timer{
+    margin-top:10px;
+    display:inline-flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    background:rgba(255,255,255,0.78);
+    padding:8px 18px;
+    border-radius:18px;
+    border:1.5px dashed var(--coral);
+    box-shadow:0 4px 12px rgba(58,33,69,0.08);
+  }
+  .timer-label{
+    font-size:12px;
+    color:var(--plum-soft);
+    font-weight:600;
+  }
+  .timer-boxes{
+    display:flex;
+    align-items:center;
+    gap:4px;
+  }
+  .t-box{
+    font-family:'Baloo 2',sans-serif;
+    font-size:18px;
+    font-weight:700;
+    color:var(--coral-deep);
+    background:#FFF0F5;
+    padding:2px 8px;
+    border-radius:8px;
+    min-width:28px;
+    text-align:center;
+  }
+  .t-colon{
+    font-family:'Baloo 2',sans-serif;
+    font-size:18px;
+    font-weight:700;
+    color:var(--coral);
+  }
   .tap-hint{
-    margin-top:14px;
-    font-size:14px;
+    margin-top:10px;
+    font-size:13.5px;
     letter-spacing:.02em;
     color:var(--plum-soft);
   }
@@ -152,6 +221,16 @@
     inset:0;
     z-index:60;
     pointer-events:none;
+  }
+  #fireworks-canvas{
+    position:fixed;
+    inset:0;
+    z-index:58;
+    pointer-events:none;
+    display:none;
+  }
+  #fireworks-canvas.active{
+    display:block;
   }
 
   /* ================= MAIN CONTENT ================= */
@@ -232,9 +311,72 @@
   }
   .count-today{
     display:none;
-    font-family:'Baloo 2',sans-serif;
+    animation:celebrateIn .8s cubic-bezier(.34,1.56,.64,1) forwards;
+  }
+  @keyframes celebrateIn{
+    0%{opacity:0; transform:scale(0.9) translateY(16px);}
+    100%{opacity:1; transform:scale(1) translateY(0);}
+  }
+  .hbd-banner{
+    background:linear-gradient(135deg, #FFF9F3 0%, #FFF0F5 50%, #F5F9FF 100%);
+    border:2px solid var(--coral);
+    border-radius:20px;
+    padding:26px 18px;
+    box-shadow:0 12px 32px rgba(255,111,145,0.25);
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+  }
+  .hbd-sparkles{
     font-size:26px;
-    color:var(--coral-deep);
+    margin-bottom:6px;
+    animation:sparkleBob 2.4s ease-in-out infinite;
+  }
+  @keyframes sparkleBob{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.12);}
+  }
+  .hbd-main-title{
+    font-family:'Baloo 2',sans-serif;
+    font-size:clamp(24px, 6vw, 34px);
+    background:linear-gradient(120deg, #E8446F, #FF6F91, #FF9F43, #E8446F);
+    background-size:250% auto;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:shineText 4s linear infinite;
+    margin:6px 0 10px;
+    line-height:1.2;
+  }
+  @keyframes shineText{
+    to{background-position:250% center;}
+  }
+  .hbd-wishes{
+    font-family:'Quicksand',sans-serif;
+    font-size:15px;
+    line-height:1.75;
+    color:#4a3552;
+    max-width:540px;
+    margin:0 auto 16px;
+  }
+  .btn-launch-fireworks{
+    background:linear-gradient(135deg, #FF6F91, #FFC93C);
+    color:#fff;
+    border:none;
+    font-family:'Baloo 2',sans-serif;
+    font-size:14.5px;
+    font-weight:700;
+    padding:10px 22px;
+    border-radius:24px;
+    cursor:pointer;
+    box-shadow:0 6px 16px rgba(255,111,145,0.35);
+    transition:transform .15s ease, box-shadow .15s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .btn-launch-fireworks:hover{
+    transform:scale(1.06);
+    box-shadow:0 8px 22px rgba(255,111,145,0.48);
   }
 
   /* ---- gallery / scrapbook ---- */
@@ -801,13 +943,13 @@
     color:var(--plum-soft);
   }
 
-  /* ---- music toggle ---- */
+  /* ---- music toggle & pill ---- */
   #music-toggle{
     position:fixed;
     bottom:20px;
     right:20px;
     z-index:40;
-    width:52px;height:52px;
+    width:50px;height:50px;
     border-radius:50%;
     border:none;
     background:var(--coral-deep);
@@ -816,9 +958,69 @@
     cursor:pointer;
     box-shadow:0 8px 18px rgba(58,33,69,.3);
     display:flex;align-items:center;justify-content:center;
+    transition:transform .2s ease, background .2s ease;
   }
-  #music-toggle.playing{animation:spin 4s linear infinite;}
-  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+  #music-toggle:hover{transform:scale(1.08);}
+  #music-toggle.playing{
+    background:#e02e5c;
+    box-shadow:0 0 0 6px rgba(232,68,111,0.25), 0 8px 18px rgba(58,33,69,.3);
+  }
+
+  .music-pill{
+    position:fixed;
+    bottom:22px;
+    right:78px;
+    z-index:40;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(255,253,249,0.94);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border:1.5px solid rgba(255,111,145,0.35);
+    padding:6px 14px 6px 10px;
+    border-radius:999px;
+    box-shadow:0 6px 16px rgba(58,33,69,0.12);
+    cursor:pointer;
+    transition:all .25s ease;
+    user-select:none;
+  }
+  .music-pill:hover{
+    background:#fff;
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(58,33,69,0.18);
+    border-color:var(--coral);
+  }
+  .music-pill.playing{
+    border-color:var(--coral-deep);
+    background:rgba(255,245,248,0.96);
+  }
+  .music-wave{
+    display:flex;
+    align-items:center;
+    gap:2.5px;
+    height:14px;
+    min-width:14px;
+  }
+  .music-wave span{
+    width:3px;
+    height:5px;
+    background:var(--coral-deep);
+    border-radius:2px;
+    transition:height .2s ease;
+  }
+  .music-pill.playing .music-wave span:nth-child(1){animation:barBounce 0.7s ease-in-out infinite alternate;}
+  .music-pill.playing .music-wave span:nth-child(2){animation:barBounce 0.7s ease-in-out 0.2s infinite alternate;}
+  .music-pill.playing .music-wave span:nth-child(3){animation:barBounce 0.7s ease-in-out 0.4s infinite alternate;}
+  @keyframes barBounce{from{height:4px;}to{height:14px;}}
+  .music-info{display:flex;flex-direction:column;line-height:1.2;text-align:left;}
+  .music-title{font-size:11.5px;font-weight:700;color:var(--plum);white-space:nowrap;}
+  .music-artist{font-size:10px;color:var(--coral-deep);font-weight:600;}
+
+  @media (max-width:540px){
+    .music-pill{right:74px;padding:5px 10px 5px 8px;}
+    .music-artist{display:none;}
+  }
 
   @media (max-width:420px){
     .gallery{grid-template-columns:repeat(2,1fr);}
@@ -832,6 +1034,7 @@
 
 <!-- ============ GATE ============ -->
 <div id="gate">
+  <div class="gate-lock-toast" id="gateLockToast">Sabar yaa, baru bisa dibuka pukul 00:00 tgl 9 September! ⏳💖</div>
   <div class="gate-inner">
     <div class="balloon-row">
       <span>🎈</span><span>🎈</span><span>🎈</span><span>🎈</span>
@@ -839,15 +1042,24 @@
     <div class="envelope" id="envelope">
       <div class="env-body"></div>
       <div class="env-flap"></div>
-      <div class="env-heart">💌</div>
+      <div class="env-heart" id="envHeart">🔒</div>
     </div>
-    <h1 class="gate-title">Untuk Natasya</h1>
-    <p class="gate-sub">ada kejutan kecil di dalam ✨</p>
-    <p class="tap-hint">(tap amplopnya)</p>
+    <h1 class="gate-title" id="gateTitle">Untuk Natasya</h1>
+    <p class="gate-sub" id="gateSub">ada kejutan kecil di dalam ✨</p>
+    <div class="gate-timer" id="gateTimer" style="display:none;">
+      <span class="timer-label">Bisa dibuka dalam:</span>
+      <div class="timer-boxes">
+        <span class="t-box" id="gt-hours">00</span><span class="t-colon">:</span>
+        <span class="t-box" id="gt-mins">00</span><span class="t-colon">:</span>
+        <span class="t-box" id="gt-secs">00</span>
+      </div>
+    </div>
+    <p class="tap-hint" id="tapHint">(terkunci sampai 9 September 00:00)</p>
   </div>
 </div>
 
 <canvas id="confetti-canvas"></canvas>
+<canvas id="fireworks-canvas"></canvas>
 
 <!-- ============ MAIN ============ -->
 <main>
@@ -860,8 +1072,8 @@
 
   <section id="countdown">
     <div class="section-head">
-      <h2>Menuju Hari Spesialmu</h2>
-      <span class="script">biar makin deg-degan nunggunya~</span>
+      <h2 id="countSectionTitle">Menuju Hari Spesialmu</h2>
+      <span class="script" id="countSectionSub">biar makin deg-degan nunggunya~</span>
     </div>
     <div class="count-card">
       <div class="count-grid" id="countGrid">
@@ -870,7 +1082,18 @@
         <div class="count-box"><span class="num" id="cd-mins">--</span><span class="label">menit</span></div>
         <div class="count-box"><span class="num" id="cd-secs">--</span><span class="label">detik</span></div>
       </div>
-      <div class="count-today" id="countToday">Sekarang harinya! Selamat ulang tahun! 🎉🎂</div>
+      <div class="count-today" id="countToday">
+        <div class="hbd-banner">
+          <div class="hbd-sparkles">✨ 🎂 💖 🎂 ✨</div>
+          <h2 class="hbd-main-title">Happy Birthday, Natasya! 🎉</h2>
+          <p class="hbd-wishes">
+            Hari yang paling dinanti akhirnya tiba! Selamat ulang tahun untuk orang paling berharga yang selalu membuat duniaku lebih indah. Semoga di usiamu yang baru ini, setiap langkahmu dipenuhi kebahagiaan, kesehatan, dan impian-impian indahmu menjadi nyata! 🤍✨
+          </p>
+          <div class="hbd-actions">
+            <button class="btn-launch-fireworks" id="btnLaunchFireworks">🎆 Nyalakan Kembang Api Lagi</button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1011,9 +1234,20 @@
   </footer>
 </main>
 
+<div class="music-pill" id="music-pill" title="Putar / Jeda Musik">
+  <div class="music-wave">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="music-info">
+    <span class="music-title">Happy Birthday!</span>
+    <span class="music-artist">Special Song 🎶</span>
+  </div>
+</div>
 <button id="music-toggle" title="Putar musik">🎵</button>
-<audio id="bgm" loop preload="none">
-  <source src="assets/music.mp3" type="audio/mpeg">
+
+<audio id="bgm" loop preload="auto">
+  <source src="Happy%20Birthday!.mp3" type="audio/mpeg">
+  <source src="Happy Birthday!.mp3" type="audio/mpeg">
 </audio>
 
 <script src="photos_b64.js"></script>
