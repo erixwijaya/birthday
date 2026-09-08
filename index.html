@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Natasya 🎈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Caveat:wght@500;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF8F0;
+    --paper:#FFFDF9;
+    --coral:#FF6F91;
+    --coral-deep:#E8446F;
+    --sun:#FFC93C;
+    --sky:#4FB6E8;
+    --plum:#3A2145;
+    --plum-soft:#6B4C7A;
+    --mint:#4ED9B0;
+    --line:#f0d9c4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--plum);
+    font-family:'Quicksand',sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Baloo 2',sans-serif;
+    margin:0;
+  }
+  .script{
+    font-family:'Caveat',cursive;
+  }
+  a{color:inherit;}
+
+  /* ---------- decorative bg shapes (Braga-lamp inspired) ---------- */
+  .bg-decor{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+  }
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(2px);
+    opacity:.35;
+  }
+
+  /* ================= GATE (opening envelope) ================= */
+  #gate{
+    position:fixed;
+    inset:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(160deg,#FFE3D0 0%, #FFCFE0 45%, #CDEFFF 100%);
+    transition:transform 1s cubic-bezier(.6,-0.28,.24,1.3), opacity .9s ease;
+  }
+  #gate.opened{
+    transform:translateY(-100%);
+    opacity:0;
+    pointer-events:none;
+  }
+  .gate-inner{
+    text-align:center;
+    padding:0 24px;
+  }
+  .balloon-row{
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    margin-bottom:8px;
+  }
+  .balloon-row span{
+    font-size:38px;
+    display:inline-block;
+    animation:bob 3.2s ease-in-out infinite;
+  }
+  .balloon-row span:nth-child(2){animation-delay:.4s;}
+  .balloon-row span:nth-child(3){animation-delay:.8s;}
+  .balloon-row span:nth-child(4){animation-delay:1.2s;}
+  @keyframes bob{
+    0%,100%{transform:translateY(0) rotate(-3deg);}
+    50%{transform:translateY(-14px) rotate(3deg);}
+  }
+  .envelope{
+    width:220px;
+    height:150px;
+    margin:18px auto 26px;
+    position:relative;
+    cursor:pointer;
+    filter:drop-shadow(0 18px 24px rgba(58,33,69,.25));
+  }
+  .env-body{
+    position:absolute;
+    inset:0;
+    background:var(--paper);
+    border-radius:14px;
+    border:3px solid var(--coral-deep);
+  }
+  .env-flap{
+    position:absolute;
+    top:0; left:0; right:0;
+    height:0;
+    border-left:110px solid transparent;
+    border-right:110px solid transparent;
+    border-top:78px solid var(--coral);
+    border-radius:14px 14px 0 0;
+    transform-origin:top center;
+    transition:transform .5s ease;
+    z-index:2;
+  }
+  .envelope:hover .env-flap{transform:rotateX(-25deg) translateY(-4px);}
+  .env-heart{
+    position:absolute;
+    left:50%; top:52%;
+    transform:translate(-50%,-50%);
+    font-size:28px;
+    z-index:1;
+    animation:pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{transform:translate(-50%,-50%) scale(1);}
+    50%{transform:translate(-50%,-50%) scale(1.15);}
+  }
+  .gate-title{
+    font-size:clamp(22px,5vw,32px);
+    color:var(--plum);
+    margin-bottom:6px;
+  }
+  .gate-sub{
+    font-family:'Caveat',cursive;
+    font-size:24px;
+    color:var(--coral-deep);
+  }
+  .tap-hint{
+    margin-top:14px;
+    font-size:14px;
+    letter-spacing:.02em;
+    color:var(--plum-soft);
+  }
+
+  #confetti-canvas{
+    position:fixed;
+    inset:0;
+    z-index:60;
+    pointer-events:none;
+  }
+
+  /* ================= MAIN CONTENT ================= */
+  main{
+    position:relative;
+    z-index:1;
+    max-width:720px;
+    margin:0 auto;
+    padding:0 22px 40px;
+  }
+
+  .hero{
+    text-align:center;
+    padding:70px 0 30px;
+  }
+  .hero .eyebrow-emoji{font-size:32px;}
+  .hero h1{
+    font-size:clamp(32px,7vw,52px);
+    color:var(--coral-deep);
+    line-height:1.15;
+    margin:10px 0 6px;
+  }
+  .hero h1 span{color:var(--sky);}
+  .hero p{
+    font-family:'Caveat',cursive;
+    font-size:22px;
+    color:var(--plum-soft);
+    max-width:420px;
+    margin:0 auto;
+  }
+
+  section{
+    margin-top:56px;
+  }
+  .section-head{
+    text-align:center;
+    margin-bottom:26px;
+  }
+  .section-head h2{
+    font-size:clamp(22px,5vw,30px);
+    color:var(--plum);
+  }
+  .section-head .script{
+    display:block;
+    font-size:20px;
+    color:var(--coral-deep);
+    margin-top:2px;
+  }
+
+  /* ---- countdown ---- */
+  .count-card{
+    background:var(--paper);
+    border:3px dashed var(--sky);
+    border-radius:24px;
+    padding:26px 18px;
+    text-align:center;
+  }
+  .count-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-top:14px;
+  }
+  .count-box{
+    background:linear-gradient(160deg,#FFF0F5,#FFE9D6);
+    border-radius:16px;
+    padding:12px 4px;
+  }
+  .count-box .num{
+    font-family:'Baloo 2',sans-serif;
+    font-size:clamp(22px,6vw,32px);
+    color:var(--coral-deep);
+    display:block;
+  }
+  .count-box .label{
+    font-size:12px;
+    color:var(--plum-soft);
+  }
+  .count-today{
+    display:none;
+    font-family:'Baloo 2',sans-serif;
+    font-size:26px;
+    color:var(--coral-deep);
+  }
+
+  /* ---- gallery / scrapbook ---- */
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px 14px;
+    padding:6px;
+  }
+  .polaroid{
+    background:var(--paper);
+    padding:8px 8px 20px;
+    border-radius:4px;
+    box-shadow:0 8px 18px rgba(58,33,69,.18);
+    transition:transform .25s ease, box-shadow .25s ease;
+    position:relative;
+  }
+  .polaroid:nth-child(3n+1){transform:rotate(-4deg);}
+  .polaroid:nth-child(3n+2){transform:rotate(3deg);}
+  .polaroid:nth-child(3n){transform:rotate(-2deg);}
+  .polaroid:hover{
+    transform:scale(1.06) rotate(0deg) !important;
+    box-shadow:0 14px 26px rgba(58,33,69,.28);
+    z-index:2;
+  }
+  .polaroid img{
+    width:100%;
+    display:block;
+    border-radius:2px;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    background:#eee;
+  }
+  .tape{
+    position:absolute;
+    top:-10px; left:50%;
+    transform:translateX(-50%) rotate(-3deg);
+    width:52px; height:20px;
+    background:rgba(255,201,60,.75);
+    box-shadow:0 2px 4px rgba(0,0,0,.1);
+  }
+
+  /* ---- braga highlight ---- */
+  .braga{
+    background:linear-gradient(150deg,#3A2145,#6B3A72);
+    border-radius:26px;
+    padding:30px 24px;
+    color:#FFF8F0;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    align-items:center;
+    text-align:center;
+    overflow:hidden;
+    position:relative;
+  }
+  .braga .lamp{
+    font-size:30px;
+  }
+  .braga h3{
+    font-size:24px;
+    color:var(--sun);
+  }
+  .braga p{
+    max-width:440px;
+    line-height:1.65;
+    font-size:15.5px;
+    color:#FDEEE3;
+  }
+  .braga .photo-strip{
+    display:flex;
+    gap:10px;
+    margin-top:4px;
+  }
+  .braga .photo-strip img{
+    width:84px;height:84px;object-fit:cover;border-radius:12px;
+    border:2px solid rgba(255,255,255,.5);
+  }
+
+  /* ---- letter ---- */
+  .letter{
+    background:var(--paper);
+    border-radius:24px;
+    padding:34px 26px;
+    box-shadow:0 10px 26px rgba(58,33,69,.12);
+    position:relative;
+  }
+  .letter .to{
+    font-family:'Caveat',cursive;
+    font-size:28px;
+    color:var(--coral-deep);
+    margin-bottom:12px;
+  }
+  .letter p{
+    line-height:1.85;
+    font-size:15.5px;
+    margin:0 0 14px;
+    color:#4a3552;
+  }
+  .letter .sign{
+    font-family:'Caveat',cursive;
+    font-size:30px;
+    color:var(--plum);
+    text-align:right;
+    margin-top:18px;
+  }
+
+  /* ---- balloon pop footer ---- */
+  .pop-zone{
+    text-align:center;
+    padding:34px 10px 10px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+  .pop-zone .script{
+    font-size:22px;
+    color:var(--plum-soft);
+    display:block;
+    margin-bottom:14px;
+  }
+  .balloons{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .pop-balloon{
+    font-size:40px;
+    cursor:pointer;
+    background:none;
+    border:none;
+    transition:transform .15s ease;
+    animation:bob 3.4s ease-in-out infinite;
+  }
+  .pop-balloon:nth-child(2){animation-delay:.3s;}
+  .pop-balloon:nth-child(3){animation-delay:.6s;}
+  .pop-balloon:nth-child(4){animation-delay:.9s;}
+  .pop-balloon:nth-child(5){animation-delay:1.2s;}
+  .pop-balloon:active{transform:scale(1.3);}
+  .pop-balloon.popped{opacity:0; pointer-events:none; transform:scale(2);}
+
+  /* ---- floating pop text ---- */
+  .pop-toast{
+    position:fixed;
+    pointer-events:none;
+    z-index:999;
+    font-family:'Caveat',cursive;
+    font-size:22px;
+    font-weight:700;
+    color:var(--coral-deep);
+    background:rgba(255,255,255,0.95);
+    padding:6px 14px;
+    border-radius:20px;
+    box-shadow:0 4px 14px rgba(58,33,69,0.18);
+    transform:translate(-50%,-50%) scale(0.6);
+    opacity:0;
+    animation:floatUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  @keyframes floatUp{
+    0%{opacity:0; transform:translate(-50%, 0) scale(0.6);}
+    20%{opacity:1; transform:translate(-50%, -20px) scale(1.1);}
+    40%{transform:translate(-50%, -35px) scale(1);}
+    80%{opacity:1; transform:translate(-50%, -50px) scale(1);}
+    100%{opacity:0; transform:translate(-50%, -65px) scale(0.85);}
+  }
+
+  /* ---- reopen surprise button in pop-zone ---- */
+  .reopen-surprise-btn{
+    display:none;
+    margin:16px auto 0;
+    background:linear-gradient(135deg, var(--sun), var(--coral));
+    color:#fff;
+    border:none;
+    padding:11px 24px;
+    font-family:'Baloo 2',sans-serif;
+    font-size:15px;
+    font-weight:700;
+    border-radius:26px;
+    cursor:pointer;
+    box-shadow:0 6px 16px rgba(255,111,145,0.35);
+    transition:transform .2s ease, box-shadow .2s ease;
+    animation:btnPulse 2s infinite ease-in-out;
+  }
+  .reopen-surprise-btn:hover{
+    transform:scale(1.06);
+    box-shadow:0 10px 22px rgba(255,111,145,0.45);
+    animation-play-state:paused;
+  }
+  @keyframes btnPulse{
+    0%, 100%{
+      transform:scale(1);
+    }
+    50%{
+      transform:scale(1.06);
+    }
+  }
+
+  /* ---- surprise modal overlay ---- */
+  .surprise-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(58,33,69,0.6);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .4s ease;
+  }
+  .surprise-modal.show{
+    opacity:1;
+    pointer-events:auto;
+  }
+  .surprise-card{
+    background:var(--paper);
+    border:3px solid var(--coral);
+    border-radius:28px;
+    max-width:500px;
+    width:100%;
+    max-height:92vh;
+    overflow-y:auto;
+    padding:26px 18px;
+    box-shadow:0 24px 50px rgba(58,33,69,0.35);
+    text-align:center;
+    transform:scale(0.85) translateY(25px);
+    transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+    position:relative;
+  }
+  .surprise-modal.show .surprise-card{
+    transform:scale(1) translateY(0);
+  }
+  .surprise-badge{
+    display:inline-block;
+    background:linear-gradient(135deg, var(--sun), var(--coral));
+    color:#fff;
+    font-weight:700;
+    font-size:12px;
+    padding:4px 14px;
+    border-radius:30px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+  }
+  .surprise-card h2{
+    font-size:clamp(20px,5vw,26px);
+    color:var(--coral-deep);
+    margin:8px 0 4px;
+  }
+  .surprise-card p.subtitle{
+    font-size:14px;
+    color:#61476b;
+    margin:0 0 12px;
+    line-height:1.45;
+  }
+
+  /* ---- photo showcase & music controls ---- */
+  .music-hbd-toggle{
+    background:rgba(232,68,111,0.12);
+    color:var(--coral-deep);
+    border:1.5px solid var(--coral);
+    border-radius:20px;
+    padding:5px 14px;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin:0 auto 14px;
+    transition:all .2s ease;
+  }
+  .music-hbd-toggle:hover{
+    background:var(--coral);
+    color:#fff;
+  }
+  .music-hbd-toggle.muted{
+    opacity:0.65;
+    background:#eee;
+    color:#777;
+    border-color:#ccc;
+  }
+
+  .photo-showcase-container{
+    position:relative;
+    margin:4px auto 18px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:100%;
+  }
+  .polaroid-frame{
+    background:var(--paper);
+    border-radius:6px;
+    padding:10px 10px 20px;
+    box-shadow:0 14px 32px rgba(58,33,69,0.22);
+    width:280px;
+    max-width:92%;
+    position:relative;
+    transform:rotate(-1.5deg);
+    transition:transform .5s ease, box-shadow .3s ease;
+  }
+  .polaroid-frame:hover{
+    transform:rotate(0deg) scale(1.02);
+    box-shadow:0 18px 38px rgba(58,33,69,0.28);
+  }
+  .polaroid-frame .tape{
+    position:absolute;
+    top:-10px;
+    left:50%;
+    transform:translateX(-50%) rotate(-2deg);
+    width:56px;
+    height:22px;
+    background:rgba(255,201,60,0.8);
+    box-shadow:0 2px 5px rgba(0,0,0,0.12);
+    z-index:3;
+  }
+  .photo-stage{
+    position:relative;
+    width:100%;
+    aspect-ratio:1/1;
+    overflow:hidden;
+    border-radius:3px;
+    background:#f4ece1;
+  }
+  .showcase-img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transform:scale(1.04);
+    transition:opacity .7s ease-in-out, transform .7s ease-in-out;
+  }
+  .showcase-img.active{
+    opacity:1;
+    transform:scale(1);
+  }
+  .polaroid-caption{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:10px;
+    padding:0 4px;
+  }
+  .polaroid-caption span#showcaseCaption{
+    font-family:'Caveat',cursive;
+    font-size:20px;
+    font-weight:700;
+    color:var(--plum);
+  }
+  .showcase-count{
+    font-size:12px;
+    color:var(--coral-deep);
+    font-weight:700;
+    background:rgba(255,111,145,0.12);
+    padding:2px 8px;
+    border-radius:10px;
+  }
+  .showcase-controls{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:14px;
+  }
+  .ctrl-btn{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    border:2px solid var(--coral);
+    background:#fff;
+    color:var(--coral-deep);
+    font-size:16px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .15s ease;
+    box-shadow:0 3px 8px rgba(58,33,69,0.1);
+  }
+  .ctrl-btn:hover{
+    background:var(--coral-deep);
+    color:#fff;
+    transform:scale(1.1);
+  }
+  .ctrl-btn.ctrl-play{
+    width:42px;
+    height:42px;
+    font-size:17px;
+    background:var(--coral);
+    color:#fff;
+    border-color:var(--coral-deep);
+  }
+  .showcase-dots{
+    display:flex;
+    gap:6px;
+    margin-top:12px;
+    flex-wrap:wrap;
+    justify-content:center;
+    max-width:240px;
+  }
+  .dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#e0c9d7;
+    cursor:pointer;
+    transition:all .2s ease;
+  }
+  .dot.active{
+    background:var(--coral-deep);
+    transform:scale(1.3);
+    border-radius:4px;
+    width:16px;
+  }
+
+  .toggle-vouchers-btn{
+    background:linear-gradient(135deg, #FFF0F5, #FFE9D6);
+    border:2px dashed var(--coral);
+    color:var(--coral-deep);
+    font-family:'Baloo 2',sans-serif;
+    font-size:14px;
+    font-weight:700;
+    padding:9px 16px;
+    border-radius:18px;
+    cursor:pointer;
+    width:100%;
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:all .2s ease;
+  }
+  .toggle-vouchers-btn:hover{
+    background:var(--paper);
+    transform:scale(1.02);
+    box-shadow:0 6px 16px rgba(255,111,145,0.25);
+  }
+  .voucher-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:20px;
+    text-align:left;
+  }
+  .voucher-card{
+    background:linear-gradient(135deg, #FFF9F3 0%, #FFF0F5 100%);
+    border:2px dashed var(--coral);
+    border-radius:18px;
+    padding:14px 16px;
+    position:relative;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .voucher-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(232,68,111,0.15);
+  }
+  .voucher-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:6px;
+  }
+  .voucher-title{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:16px;
+    color:var(--plum);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .voucher-tag{
+    font-size:11px;
+    font-weight:700;
+    background:rgba(232,68,111,0.12);
+    color:var(--coral-deep);
+    padding:3px 8px;
+    border-radius:12px;
+    white-space:nowrap;
+  }
+  .voucher-desc{
+    font-size:13px;
+    color:#664d6e;
+    line-height:1.45;
+    margin:0 0 10px;
+  }
+  .voucher-footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-size:11.5px;
+    color:var(--plum-soft);
+    border-top:1px dashed #f0c9d5;
+    padding-top:8px;
+  }
+  .claim-btn{
+    background:var(--coral-deep);
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    padding:6px 12px;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+    transition:background .2s, transform .15s;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+  }
+  .claim-btn:hover{
+    background:#d6305d;
+    transform:scale(1.05);
+  }
+  .claim-btn.claimed{
+    background:#4ED9B0;
+    color:#1d5c49;
+    pointer-events:none;
+  }
+  .surprise-actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .btn-reset-balloons{
+    background:var(--sun);
+    color:var(--plum);
+    border:none;
+    border-radius:16px;
+    padding:12px 18px;
+    font-family:'Baloo 2',sans-serif;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    transition:transform .15s, box-shadow .2s;
+    box-shadow:0 4px 12px rgba(255,201,60,0.4);
+  }
+  .btn-reset-balloons:hover{
+    transform:scale(1.03);
+  }
+  .btn-close-modal{
+    background:none;
+    border:none;
+    color:var(--plum-soft);
+    font-size:13.5px;
+    cursor:pointer;
+    padding:6px;
+  }
+  .btn-close-modal:hover{
+    text-decoration:underline;
+  }
+
+  footer{
+    text-align:center;
+    padding:36px 10px 10px;
+    font-size:13px;
+    color:var(--plum-soft);
+  }
+
+  /* ---- music toggle ---- */
+  #music-toggle{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:40;
+    width:52px;height:52px;
+    border-radius:50%;
+    border:none;
+    background:var(--coral-deep);
+    color:#fff;
+    font-size:20px;
+    cursor:pointer;
+    box-shadow:0 8px 18px rgba(58,33,69,.3);
+    display:flex;align-items:center;justify-content:center;
+  }
+  #music-toggle.playing{animation:spin 4s linear infinite;}
+  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+  @media (max-width:420px){
+    .gallery{grid-template-columns:repeat(2,1fr);}
+    .braga .photo-strip img{width:70px;height:70px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-decor" id="bgDecor"></div>
+
+<!-- ============ GATE ============ -->
+<div id="gate">
+  <div class="gate-inner">
+    <div class="balloon-row">
+      <span>🎈</span><span>🎈</span><span>🎈</span><span>🎈</span>
+    </div>
+    <div class="envelope" id="envelope">
+      <div class="env-body"></div>
+      <div class="env-flap"></div>
+      <div class="env-heart">💌</div>
+    </div>
+    <h1 class="gate-title">Untuk Natasya</h1>
+    <p class="gate-sub">ada kejutan kecil di dalam ✨</p>
+    <p class="tap-hint">(tap amplopnya)</p>
+  </div>
+</div>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ============ MAIN ============ -->
+<main>
+
+  <section class="hero">
+    <div class="eyebrow-emoji">🎂🎉</div>
+    <h1>Selamat Ulang Tahun,<br><span>Natasya!</span></h1>
+    <p>dari Erix, dengan sepenuh hati — 9 September selalu jadi hari favoritku.</p>
+  </section>
+
+  <section id="countdown">
+    <div class="section-head">
+      <h2>Menuju Hari Spesialmu</h2>
+      <span class="script">biar makin deg-degan nunggunya~</span>
+    </div>
+    <div class="count-card">
+      <div class="count-grid" id="countGrid">
+        <div class="count-box"><span class="num" id="cd-days">--</span><span class="label">hari</span></div>
+        <div class="count-box"><span class="num" id="cd-hours">--</span><span class="label">jam</span></div>
+        <div class="count-box"><span class="num" id="cd-mins">--</span><span class="label">menit</span></div>
+        <div class="count-box"><span class="num" id="cd-secs">--</span><span class="label">detik</span></div>
+      </div>
+      <div class="count-today" id="countToday">Sekarang harinya! Selamat ulang tahun! 🎉🎂</div>
+    </div>
+  </section>
+
+  <section id="gallery-section">
+    <div class="section-head">
+      <h2>Galeri Kenangan</h2>
+      <span class="script">potongan-potongan hari yang aku suka</span>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <section id="braga">
+    <div class="braga">
+      <div class="lamp">🏮🚶‍♀️🚶</div>
+      <h3>Jalan-jalan di Braga</h3>
+      <p>Salah satu sore yang paling aku ingat: cuma jalan santai berdua di Braga, lihat gedung-gedung tua, mampir sana-sini tanpa rencana — tapi itu salah satu waktu paling menyenangkan yang pernah aku punya. Semoga masih banyak jalan-jalan lain yang menunggu kita.</p>
+      <div class="photo-strip" id="bragaStrip"></div>
+    </div>
+  </section>
+
+  <section id="letter">
+    <div class="section-head">
+      <h2>Sebuah Surat</h2>
+    </div>
+    <div class="letter">
+      <div class="to">Untuk Natasya,</div>
+      <p>Selamat ulang tahun. Hari ini aku cuma mau kamu tahu betapa aku bersyukur ada kamu di hidupku — bukan cuma di momen-momen besar, tapi juga di hal-hal kecil yang sering nggak kelihatan istimewa: obrolan panjang yang nggak penting-penting amat, ketawa bareng karena hal receh, atau cuma jalan pelan-pelan berdua kayak waktu kita di Braga kemarin.</p>
+      <p>Kamu itu orang yang selalu bikin hari-hari biasa jadi lebih berwarna. Cara kamu ketawa, cara kamu cerita hal-hal kecil dengan semangat, sampai cara kamu ngambek yang kadang lucu banget — semuanya bikin aku makin sayang sama kamu, hari demi hari.</p>
+      <p>Di umur barumu ini, aku doain kamu selalu sehat, selalu dikelilingi orang-orang yang sayang kamu, dan semua rencana serta mimpi-mimpi kecil kamu pelan-pelan kewujud satu-satu. Dan kalau boleh berharap sedikit egois — semoga aku masih dapat tempat buat terus jalan bareng kamu, ke Braga lagi, atau ke tempat-tempat baru yang belum pernah kita datangi.</p>
+      <p>Terima kasih sudah jadi kamu. Terima kasih sudah bertahan sejauh ini bareng aku. Selamat ulang tahun, sayang — semoga tahun ini penuh hal-hal baik buat kamu.</p>
+      <div class="sign">— selalu, Erix 🤍</div>
+    </div>
+  </section>
+
+  <section class="pop-zone">
+    <span class="script">satu lagi, pecahin balonnya~</span>
+    <div class="balloons" id="balloons">
+      <button class="pop-balloon" aria-label="Pecahkan balon">🎈</button>
+      <button class="pop-balloon" aria-label="Pecahkan balon">🎈</button>
+      <button class="pop-balloon" aria-label="Pecahkan balon">🎈</button>
+      <button class="pop-balloon" aria-label="Pecahkan balon">🎈</button>
+      <button class="pop-balloon" aria-label="Pecahkan balon">🎈</button>
+    </div>
+    <button class="reopen-surprise-btn" id="reopenSurpriseBtn">🎁 Buka Hadiah Spesial Balon</button>
+  </section>
+
+  <!-- ============ SURPRISE MODAL (PHOTO SHOWCASE & VOUCHERS) ============ -->
+  <div class="surprise-modal" id="surpriseModal" role="dialog" aria-modal="true" aria-labelledby="surpriseTitle">
+    <div class="surprise-card">
+      <span class="surprise-badge">✨ Special Birthday Surprise ✨</span>
+      <h2 id="surpriseTitle">Selamat Ulang Tahun, Natasya! 🎂🎉</h2>
+      <p class="subtitle">Semua balon meletus! Ini animasi momen kenangan spesial kita diiringi melodi ulang tahun untukmu:</p>
+
+      <button class="music-hbd-toggle" id="btnHbdMusic" title="Nyalakan / Matikan Musik">
+        <span>🎵 Musik:</span> <span id="hbdMusicStatus">Memutar 🔊</span>
+      </button>
+
+      <!-- ---- POLAROID PHOTO SHOWCASE ---- -->
+      <div class="photo-showcase-container">
+        <div class="polaroid-frame" id="polaroidFrame">
+          <div class="tape"></div>
+          <div class="photo-stage">
+            <img id="showcaseImgA" class="showcase-img active" src="" alt="Kenangan Natasya & Erix">
+            <img id="showcaseImgB" class="showcase-img" src="" alt="Kenangan Natasya & Erix">
+          </div>
+          <div class="polaroid-caption">
+            <span id="showcaseCaption">Kenangan Manis Kita ✨</span>
+            <span class="showcase-count" id="showcaseCounter">1 / 12</span>
+          </div>
+        </div>
+
+        <div class="showcase-controls">
+          <button class="ctrl-btn" id="showcasePrev" title="Foto Sebelumnya" aria-label="Foto Sebelumnya">❮</button>
+          <button class="ctrl-btn ctrl-play" id="showcasePlayPause" title="Jeda / Putar Otomatis" aria-label="Jeda / Putar">⏸</button>
+          <button class="ctrl-btn" id="showcaseNext" title="Foto Selanjutnya" aria-label="Foto Selanjutnya">❯</button>
+        </div>
+
+        <div class="showcase-dots" id="showcaseDots"></div>
+      </div>
+
+      <!-- ---- COLLAPSIBLE VOUCHERS ---- -->
+      <button class="toggle-vouchers-btn" id="btnToggleVouchers">
+        <span>🎁 Buka Kupon Hadiah Ulang Tahun dari Erix</span> <span id="voucherToggleIcon">▼</span>
+      </button>
+
+      <div class="voucher-section" id="voucherSection" style="display:none;">
+        <div class="voucher-list">
+          <!-- Voucher 1 -->
+          <div class="voucher-card">
+            <div class="voucher-header">
+              <div class="voucher-title">☕ Braga Coffee & Sweet Treat</div>
+              <span class="voucher-tag">VIP Pass</span>
+            </div>
+            <p class="voucher-desc">Bebas pilih kafe estetik & pesan dessert/kopi apa aja di Braga atau tempat favoritmu, semuanya Erix yang traktir!</p>
+            <div class="voucher-footer">
+              <span>Berlaku: Kapan saja</span>
+              <a class="claim-btn" href="https://wa.me/?text=Halo%20Erix!%20%F0%9F%A5%B3%20Aku%20berhasil%20mecahin%20semua%20balon%20di%20web%20ultah%20dan%20mau%20klaim%3A%20*Kupon%20Braga%20Coffee%20%26%20Sweet%20Treat*%20%E2%98%95%F0%9F%8D%B0" target="_blank" rel="noopener">Klaim di WA 💬</a>
+            </div>
+          </div>
+
+          <!-- Voucher 2 -->
+          <div class="voucher-card">
+            <div class="voucher-header">
+              <div class="voucher-title">👑 Kupon Ratu Sehari</div>
+              <span class="voucher-tag">Unlimited Power</span>
+            </div>
+            <p class="voucher-desc">Satu hari penuh bebas ngambek, bebas pilih mau jalan ke mana atau makan apa, dan semua permintaan Natasya wajib dituruti tanpa tapi!</p>
+            <div class="voucher-footer">
+              <span>Berlaku: Kapan saja</span>
+              <a class="claim-btn" href="https://wa.me/?text=Halo%20Erix!%20%F0%9F%A5%B3%20Aku%20mau%20klaim%3A%20*Kupon%20Ratu%20Sehari*%20%F0%9F%91%91%20Hari%20ini%20semua%20kemauanku%20harus%20dituruti%20ya!" target="_blank" rel="noopener">Klaim di WA 💬</a>
+            </div>
+          </div>
+
+          <!-- Voucher 3 -->
+          <div class="voucher-card">
+            <div class="voucher-header">
+              <div class="voucher-title">🎬 Movie Night & Romantic Dinner</div>
+              <span class="voucher-tag">Date Night</span>
+            </div>
+            <p class="voucher-desc">Nonton film pilihanmu dengan popcorn & cemilan berlimpah, dilanjutkan makan malam santai berdua.</p>
+            <div class="voucher-footer">
+              <span>Berlaku: Kapan saja</span>
+              <a class="claim-btn" href="https://wa.me/?text=Halo%20Erix!%20%F0%9F%A5%B3%20Aku%20mau%20klaim%3A%20*Kupon%20Movie%20Night%20%26%20Romantic%20Dinner*%20%F0%9F%8E%AC%F0%9F%8D%B7%20Yuk%20jadwalkan!" target="_blank" rel="noopener">Klaim di WA 💬</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="surprise-actions">
+        <button class="btn-reset-balloons" id="btnResetBalloons">Tiup Ulang Balonnya 🎈</button>
+        <button class="btn-close-modal" id="btnCloseSurprise">Tutup Sementara</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    dibuat dengan sayang oleh Erix, untuk Natasya 💌
+  </footer>
+</main>
+
+<button id="music-toggle" title="Putar musik">🎵</button>
+<audio id="bgm" loop preload="none">
+  <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
+
+<script src="photos_b64.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
