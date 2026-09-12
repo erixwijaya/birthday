@@ -334,102 +334,29 @@ function toggleYtMusic(){
   }
 }
 
-/* ============ GATE LOCK & ENVELOPE OPENING ============ */
+/* ============ GATE & ENVELOPE OPENING (BISA DIBUKA KAPAN SAJA) ============ */
 const gate = document.getElementById('gate');
 const envelope = document.getElementById('envelope');
 const envHeart = document.getElementById('envHeart');
-const gateTimer = document.getElementById('gateTimer');
-const gtHours = document.getElementById('gt-hours');
-const gtMins = document.getElementById('gt-mins');
-const gtSecs = document.getElementById('gt-secs');
 const tapHint = document.getElementById('tapHint');
-const gateLockToast = document.getElementById('gateLockToast');
-const gateTitle = document.getElementById('gateTitle');
-
-let toastTimeout = null;
-function showGateToast(msg){
-  if(!gateLockToast) return;
-  gateLockToast.textContent = msg;
-  gateLockToast.style.display = 'block';
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(()=>{
-    gateLockToast.style.display = 'none';
-  }, 2500);
-}
-
-// Secret testing feature: double-click gate title or use ?unlock=1
-let testUnlocked = new URLSearchParams(window.location.search).get('unlock') === '1';
-if(gateTitle){
-  gateTitle.addEventListener('dblclick', ()=>{
-    testUnlocked = true;
-    updateGateLockState();
-    showGateToast('Mode Pengujian: Amplop Terbuka! 🔓✨');
-  });
-}
-
-function getUnlockTime(now){
-  const year = now.getFullYear();
-  let target = new Date(year, 8, 9, 0, 0, 0); // 9 September 00:00:00
-  if(now > new Date(year, 8, 9, 23, 59, 59)){
-    target = new Date(year + 1, 8, 9, 0, 0, 0);
-  }
-  return target;
-}
 
 function isEnvelopeUnlocked(){
-  if(testUnlocked) return true;
-  const now = new Date();
-  const unlockTarget = getUnlockTime(now);
-  return now >= unlockTarget;
+  return true; // Bisa dibuka kapan saja!
 }
 
 let opened = false;
 
 function updateGateLockState(){
   if(opened) return;
-  const now = new Date();
-  const unlockTarget = getUnlockTime(now);
-  let diff = unlockTarget - now;
-
-  if(isEnvelopeUnlocked() || diff <= 0){
-    // UNLOCKED!
-    if(envHeart) envHeart.textContent = '💌';
-    if(gateTimer) gateTimer.style.display = 'none';
-    if(tapHint) tapHint.textContent = '✨ Waktunya telah tiba! Tap amplopnya ✨';
-    if(envelope) envelope.classList.remove('locked');
-  } else {
-    // LOCKED!
-    if(envHeart) envHeart.textContent = '🔒';
-    if(gateTimer) gateTimer.style.display = 'inline-flex';
-    if(envelope) envelope.classList.add('locked');
-
-    const totalSecs = Math.max(0, Math.floor(diff / 1000));
-    const h = Math.floor(totalSecs / 3600);
-    const m = Math.floor((totalSecs % 3600) / 60);
-    const s = totalSecs % 60;
-
-    if(gtHours) gtHours.textContent = String(h).padStart(2, '0');
-    if(gtMins) gtMins.textContent = String(m).padStart(2, '0');
-    if(gtSecs) gtSecs.textContent = String(s).padStart(2, '0');
-    if(tapHint) tapHint.textContent = '(terkunci sampai 9 September 00:00)';
-  }
+  if(envHeart) envHeart.textContent = '💌';
+  if(tapHint) tapHint.textContent = '✨ Tap amplopnya untuk membuka ✨';
+  if(envelope) envelope.classList.remove('locked');
 }
 updateGateLockState();
-setInterval(updateGateLockState, 1000);
 
 function handleEnvelopeClick(e){
   if(opened) return;
   if(e) e.preventDefault();
-
-  if(!isEnvelopeUnlocked()){
-    if(envelope){
-      envelope.classList.remove('shake');
-      void envelope.offsetWidth;
-      envelope.classList.add('shake');
-    }
-    showGateToast('Sabar yaa, amplop baru bisa dibuka pukul 00:00 tgl 9 September! ⏳💖');
-    return;
-  }
 
   // 1. Mark as opened
   opened = true;
@@ -451,18 +378,15 @@ function handleEnvelopeClick(e){
   if(gate) gate.classList.add('opened');
   document.body.style.overflow = 'auto';
 
-  // 6. Trigger birthday greeting banner immediately if 9 September
-  const now = new Date();
-  if(now.getMonth() === 8 && now.getDate() === 9){
-    const gridEl = document.getElementById('countGrid');
-    const todayEl = document.getElementById('countToday');
-    const countTitle = document.getElementById('countSectionTitle');
-    const countSub = document.getElementById('countSectionSub');
-    if(gridEl) gridEl.style.display = 'none';
-    if(todayEl) todayEl.style.display = 'block';
-    if(countTitle) countTitle.textContent = 'Hari Spesial Telah Tiba! 🎉';
-    if(countSub) countSub.textContent = 'Selamat Ulang Tahun yang Terindah~ 💖';
-  }
+  // 6. Trigger birthday greeting banner
+  const gridEl = document.getElementById('countGrid');
+  const todayEl = document.getElementById('countToday');
+  const countTitle = document.getElementById('countSectionTitle');
+  const countSub = document.getElementById('countSectionSub');
+  if(gridEl) gridEl.style.display = 'none';
+  if(todayEl) todayEl.style.display = 'block';
+  if(countTitle) countTitle.textContent = 'Hari Spesial Telah Tiba! 🎉';
+  if(countSub) countSub.textContent = 'Selamat Ulang Tahun yang Terindah~ 💖';
 }
 
 if(envelope){
@@ -473,47 +397,18 @@ if(envelope){
 /* lock scroll until opened */
 document.body.style.overflow='hidden';
 
-/* ============ COUNTDOWN LOGIC ============ */
-(function countdown(){
-  const daysEl=document.getElementById('cd-days');
-  const hoursEl=document.getElementById('cd-hours');
-  const minsEl=document.getElementById('cd-mins');
-  const secsEl=document.getElementById('cd-secs');
+/* ============ CELEBRATION SECTION ============ */
+(function setupCelebration(){
   const todayEl=document.getElementById('countToday');
   const gridEl=document.getElementById('countGrid');
   const countTitle=document.getElementById('countSectionTitle');
   const countSub=document.getElementById('countSectionSub');
   const btnLaunchFireworks=document.getElementById('btnLaunchFireworks');
 
-  let fireworksStarted = false;
-
-  function nextBirthday(now){
-    let year = now.getFullYear();
-    let target = new Date(year, 8, 9, 0, 0, 0);
-    if (target < now && !isBirthdayToday(now)){
-      target = new Date(year + 1, 8, 9, 0, 0, 0);
-    }
-    return target;
-  }
-
-  function isBirthdayToday(now){
-    return now.getMonth() === 8 && now.getDate() === 9;
-  }
-
-  function triggerBirthdayArrival(){
-    if(gridEl) gridEl.style.display='none';
-    if(todayEl) todayEl.style.display='block';
-    if(countTitle) countTitle.textContent = 'Hari Spesial Telah Tiba! 🎉';
-    if(countSub) countSub.textContent = 'Selamat Ulang Tahun yang Terindah~ 💖';
-
-    if(!fireworksStarted){
-      fireworksStarted = true;
-      startFireworksShow();
-      spawnConfetti(window.innerWidth * 0.5, window.innerHeight * 0.35, 90);
-      setTimeout(()=> spawnConfetti(window.innerWidth * 0.2, window.innerHeight * 0.45, 60), 300);
-      setTimeout(()=> spawnConfetti(window.innerWidth * 0.8, window.innerHeight * 0.45, 60), 600);
-    }
-  }
+  if(gridEl) gridEl.style.display='none';
+  if(todayEl) todayEl.style.display='block';
+  if(countTitle) countTitle.textContent = 'Hari Spesial Telah Tiba! 🎉';
+  if(countSub) countSub.textContent = 'Selamat Ulang Tahun yang Terindah~ 💖';
 
   if(btnLaunchFireworks){
     btnLaunchFireworks.addEventListener('click', function(e){
@@ -530,35 +425,6 @@ document.body.style.overflow='hidden';
       launchSingleFirework(e.clientX, e.clientY);
     });
   }
-
-  function tick(){
-    const now = new Date();
-    if (isBirthdayToday(now)){
-      triggerBirthdayArrival();
-      return;
-    }
-    const target = nextBirthday(now);
-    let diff = target - now;
-    if (diff <= 0){
-      triggerBirthdayArrival();
-      return;
-    }
-    if(gridEl) gridEl.style.display='grid';
-    if(todayEl) todayEl.style.display='none';
-    const d = Math.floor(diff/(1000*60*60*24));
-    diff -= d*(1000*60*60*24);
-    const h = Math.floor(diff/(1000*60*60));
-    diff -= h*(1000*60*60);
-    const m = Math.floor(diff/(1000*60));
-    diff -= m*(1000*60);
-    const s = Math.floor(diff/1000);
-    if(daysEl) daysEl.textContent=d;
-    if(hoursEl) hoursEl.textContent=String(h).padStart(2,'0');
-    if(minsEl) minsEl.textContent=String(m).padStart(2,'0');
-    if(secsEl) secsEl.textContent=String(s).padStart(2,'0');
-  }
-  tick();
-  setInterval(tick,1000);
 })();
 
 /* ============ HAPPY BIRTHDAY MUSIC SYNTHESIZER (Web Audio API) ============ */
